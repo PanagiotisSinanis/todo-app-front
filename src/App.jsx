@@ -188,7 +188,7 @@ function TaskList({ setLoggedIn, setUser }) {
       });
       fetchTasks();
     } catch {
-      alert('Σφάλμα στην ολοκλήρωση');
+      alert('Error during completion of task');
     }
   };
 
@@ -199,7 +199,7 @@ function TaskList({ setLoggedIn, setUser }) {
       });
       fetchTasks();
     } catch {
-      alert('Σφάλμα στη διαγραφή');
+      alert('Error deleting task');
     }
   };
 
