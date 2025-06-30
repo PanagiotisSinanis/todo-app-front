@@ -1,0 +1,74 @@
+.project-list-container {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-family: system-ui, sans-serif;
+  color: #222;
+}
+
+.project-list-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-list li {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.project-list li:hover {
+  background-color: #f9f9f9;
+  border-color: #ccc;
+}
+
+.project-list li strong {
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #111;
+}
+
+.project-list li p {
+  margin-bottom: 0.8rem;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.project-list li button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #4a90e2;
+  color: white;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.project-list-container > button {
+  display: block;
+  margin: 0 auto;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.project-list li button:hover {
+  background-color: #3b7dc4;
+}
