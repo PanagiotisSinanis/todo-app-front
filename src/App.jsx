@@ -11,6 +11,14 @@ import ProjectDetails from './ProjectDetails';
 import ProjectList from './ProjectList';
 import './UserDashboard.css';
 import CreateTask from './CreateTask';
+import PrivateRoute from './PrivateRoute';
+import GuestRoute from './GuestRoute';
+import AdminLayout from './AdminLayout';
+import 'antd/dist/reset.css';
+import ProtectedRoute from './ProtectedRoute';
+import UserLayout from './UserLayout';
+
+
 
 
 // Helper functions
@@ -309,10 +317,38 @@ function SuperAdminDashboard({ setLoggedIn, setUser }) {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>SuperAdmin Dashboard</h1>
-      <p>Welcome, superadmin!</p>
-      <button onClick={handleLogout}>Logout</button>
+    <div className="user-dashboard-container">
+      <h1>User Dashboard</h1>
+      <p>Welcome</p>
+      <h2>Assigned Projects:</h2>
+      {loading ? (
+        <p>Loading...</p>
+      ) : projects.length > 0 ? (
+        <ul>
+          {projects.map((project) => (
+            <li key={project.id}>
+              <strong>{project.name}</strong>
+              <p>{project.description}</p>
+              <button
+                onClick={() => navigate(`/projects/${project.id}`)}
+                style={{
+                  marginTop: '0.5rem',
+                  backgroundColor: '#1890ff',
+                  color: 'white',
+                  border: 'none',
+                  padding: '6px 12px',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                View Project
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No projects assigned to you.</p>
+      )}
     </div>
   );
 }
@@ -357,13 +393,7 @@ function UserDashboard({ setLoggedIn, setUser }) {
   <div className="user-dashboard-container">
     <h1>User Dashboard</h1>
     <p>Welcome</p>
-
-    <button onClick={() => navigate('/projects/new')}>
-      New Project
-    </button>
-
     <h2>Assigned Projects:</h2>
-
     {loading ? (
       <p>Loading...</p>
     ) : projects.length > 0 ? (
@@ -378,25 +408,10 @@ function UserDashboard({ setLoggedIn, setUser }) {
     ) : (
       <p>No projects assigned to you.</p>
     )}
-
     <br />
-    <button onClick={handleLogout}>Logout</button>
-    <button onClick={() => navigate('/my-projects')}>My Projects</button>
   </div>
 );
 }
-
-// ---------------- PROTECTED ROUTE ----------------
-function ProtectedRoute({ allowedRoles, children }) {
-  const role = getUserRole();
-
-  if (!allowedRoles.includes(role)) {
-    return <p>Access Denied</p>;
-  }
-  return children;
-}
-
-
 // ---------------- ProjectDetailsWrapper ----------------
 function ProjectDetailsWrapper() {
   const { projectId } = useParams();  // Παίρνει το projectId από το URL
@@ -412,44 +427,54 @@ function App() {
     if (getToken()) setLoggedIn(true);
   }, []);
 
-  return (
+ return (
     <Router>
       <Routes>
+        {/* Guest only */}
+       <Route
+  path="/login"
+  element={
+    <GuestRoute>
+      <LoginPage setLoggedIn={setLoggedIn} setUser={setUser} />
+    </GuestRoute>
+  }
+/>
+
+        <Route path="/register" element={<GuestRoute Component={RegisterPage} />} />
+
+        {/* Public route that switches */}
         <Route
           path="/"
           element={
-            loggedIn ? (
-              <TaskList setLoggedIn={setLoggedIn} setUser={setUser} />
-            ) : (
-              <LoginPage setLoggedIn={setLoggedIn} setUser={setUser} />
-            )
+            getToken()
+              ? <PrivateRoute Component={() => <TaskList setLoggedIn={setLoggedIn} setUser={setUser} />} />
+              : <GuestRoute Component={() => <LoginPage setLoggedIn={setLoggedIn} setUser={setUser} />} />
           }
         />
-        <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} setUser={setUser} />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/tasks/new" element={<NewTask />} />
 
-        <Route
-          path="/superadmin/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={['superadmin']}>
-              <SuperAdminDashboard setLoggedIn={setLoggedIn} setUser={setUser} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/user/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={['user']}>
-              <UserDashboard setLoggedIn={setLoggedIn} setUser={setUser} />
-            </ProtectedRoute>
-          }
-        />
-         <Route path="/projects/new" element={<NewProject />} />
-        <Route path="/my-projects" element={<MyProjects />} />
-        <Route path="/projects" element={<ProjectList />} />
-        <Route path="/projects/:projectId" element={<ProjectDetailsWrapper />} />
-        <Route path="/create-task" element={<CreateTask />} />
+       
+        
+        <Route path="/projects/new" element={<PrivateRoute Component={NewProject} />} />
+       <Route
+  path="/my-projects"
+  element={<PrivateRoute Component={MyProjects} allowedRoles={['user', 'superadmin']} />}
+/>
+
+
+       
+        <Route path="/projects/:projectId" element={<PrivateRoute Component={ProjectDetailsWrapper} />} />
+        
+        <Route path="/superadmin/dashboard" element={<PrivateRoute Component={AdminLayout} allowedRoles={['superadmin']} />}/>
+        <Route path="/user"element={ <ProtectedRoute allowedRoles={['user']}><UserLayout /></ProtectedRoute>}>
+        <Route path="dashboard" element={<UserDashboard setLoggedIn={setLoggedIn} setUser={setUser} />} /></Route>
+
+<Route
+      path="/superadmin/dashboard/create-project"
+      element={<PrivateRoute Component={NewProject} allowedRoles={['superadmin']} />}
+    />
+    
+
+     
       </Routes>
     </Router>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import TimeTracker from './TimeTracker';
 
 function ProjectDetails({ projectId }) {
   const [project, setProject] = useState(null);
@@ -24,7 +25,7 @@ function ProjectDetails({ projectId }) {
   }, [projectId]);
 
   const handleNewTask = (newTask) => {
-    setTasks(prev => [...prev, newTask]);  // Προσθέτει το νέο task στη λίστα
+    setTasks(prev => [...prev, newTask]);  
   };
 
   if (loading) return <p>Loading...</p>;
@@ -41,7 +42,12 @@ function ProjectDetails({ projectId }) {
           <li key={task.id}>{task.title} — {task.status}</li>
         ))}
       </ul>
+      <h1>{project.name}</h1>
+      <p>{project.description}</p>
+
+      <TimeTracker projectId={project.id} />
     </div>
+    
   );
 }
 
