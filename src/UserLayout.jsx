@@ -7,6 +7,9 @@ import {
   PlusOutlined,
 } from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
+import QuickEntryBar from './QuickEntryBar'; 
+import { Card } from 'antd';
+
 
 const { Header, Content, Sider } = Layout;
 
@@ -59,6 +62,10 @@ const UserLayout = () => {
       <Layout>
         <Header style={{ background: '#fff', padding: 0 }} />
         <Content style={{ margin: '16px' }}>
+         <Card style={{ marginBottom: 24 }}>
+    <QuickEntryBar />
+  </Card>
+  
           <Outlet />
         </Content>
       </Layout>

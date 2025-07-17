@@ -7,6 +7,8 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import QuickEntryBar from './QuickEntryBar';
+
 
 const { Header, Content, Sider } = Layout;
 
@@ -87,7 +89,7 @@ const UserDashboard = ({ setLoggedIn, setUser }) => {
         <Content style={{ margin: '16px' }}>
           <h1>User Dashboard</h1>
           <p>Welcome!</p>
-
+          <QuickEntryBar projects={projects} />
           <h2>Assigned Projects:</h2>
           {loading ? (
             <p>Loading...</p>

@@ -1,154 +1,132 @@
-.project-list-container {
-  max-width: 720px;
-  margin: 40px auto;
-  padding: 2rem;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  font-family: system-ui, sans-serif;
-  color: #222;
+
+.my-projects-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.project-list-container h1 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+.sidebar {
+  width: 220px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 0.6rem 0;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar li:hover {
+  background-color: #34495e;
+}
+
+
+.projects-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  overflow-y: auto;
+  background-color: #ecf0f1;
+}
+
+.projects-main h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2c3e50;
 }
 
 .project-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%;
+  max-width: 800px;
 }
 
-.project-list li {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  transition: border-color 0.3s, background-color 0.3s;
-}
-
-.project-list li:hover {
-  background-color: #f9f9f9;
-  border-color: #ccc;
-}
-
-.project-list li strong {
-  font-size: 1.1rem;
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #111;
-}
-
-.project-list li p {
-  margin-bottom: 0.8rem;
-  color: #555;
-  font-size: 0.95rem;
-}
-
-.project-list li button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  background-color: #4a90e2;
-  color: white;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.project-list-container > button {
-  display: block;
-  margin: 0 auto;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  background-color: #e0e0e0;
-  color: #333;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.project-list li button:hover {
-  background-color: #3b7dc4;
-}
-.clockify-wrapper {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 1rem;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.page-title {
-  text-align: center;
+.project-card {
+  background: #ffffff;
+  padding: 1.8rem;
   margin-bottom: 2rem;
-  color: #2c3e50;
-}
-
-.tracker-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.tracker-card {
-  border: 1px solid #e0e0e0;
   border-radius: 12px;
-  padding: 1.5rem;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  border-left: 6px solid #3498db;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.tracker-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-.tracker-header h2 {
-  margin: 0;
+.project-info strong {
   font-size: 1.2rem;
   color: #34495e;
 }
 
-.project-description {
+.project-info p {
+  margin: 0.5rem 0;
   color: #7f8c8d;
-  margin-top: 0.25rem;
 }
 
-.project-time {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #2ecc71;
+.project-tag {
+  background-color: #3498db;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  display: inline-block;
+  margin-top: 0.4rem;
 }
 
-.tracker-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
+.project-actions {
+  margin-top: 1rem;
 }
 
-.tracker-buttons {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.tracker-buttons button {
-  padding: 0.4rem 0.8rem;
+.project-actions button {
   background-color: #3498db;
   color: white;
   border: none;
+  padding: 0.5rem 1.2rem;
+  margin-right: 0.5rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  font-size: 0.95rem;
 }
 
-.tracker-buttons button:hover {
+.project-actions button:hover {
   background-color: #2980b9;
 }
+
+.task-creator {
+  margin-top: 1rem;
+}
+
+.tracker-wrapper {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px dashed #bdc3c7;
+  border-radius: 8px;
+  background-color: #fefefe;
+}
+
 
 .back-btn {
   margin-top: 2rem;
@@ -165,4 +143,74 @@
 
 .back-btn:hover {
   background-color: #7f8c8d;
+}
+.centered-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.full-width {
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.full-card {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.clockify-wrapper {
+  max-width: 100%;
+  margin: 0;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f6fa;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.tracker-buttons {
+  display: flex;
+  gap: 1rem; 
+  margin-top: 1rem;
+}
+
+.tracker-buttons button {
+  padding: 0.5rem 1.2rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 15px; 
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.tracker-buttons button:hover {
+  background-color: #2980b9;
+}
+.tracker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.tracker-card {
+  width: 100%;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
 }
